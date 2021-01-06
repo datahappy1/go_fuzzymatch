@@ -2,8 +2,12 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
+
+func convertToFloat(i int) float64 {
+	converted_value := float64(i)
+	return converted_value
+}
 
 func MinOf(vars ...int) int {
 	min := vars[0]
@@ -20,6 +24,8 @@ func levenshtein_ratio_and_distance(s string, t string, ratio_calc bool) string 
 	var cost int = 0
 	var row int = len(s)
 	var col int = len(t)
+	var rowf = float64(row)
+	var colf = float64(col)
 
 	// Initialize matrix of zeros
 	var rows int = len(s) + 1
@@ -41,11 +47,15 @@ func levenshtein_ratio_and_distance(s string, t string, ratio_calc bool) string 
 			distance[0][ii] = ii
 		}
 	}
-	// fmt.Println(distance)
+	//fmt.Println(distance)
 
 	// Iterate over the matrix to compute the cost of deletions,insertions and/or substitutions
 	for col := 1; col < cols; col++ {
+		//fmt.Printf("c %v\n", col)
+
 		for row := 1; row < rows; row++ {
+			//fmt.Printf("r %v\n", row)
+
 			if s[row-1] == t[col-1] {
 				cost = 0 // If the characters are the same in the two strings in a given position [i,j] then the cost is 0
 			} else {
@@ -56,20 +66,19 @@ func levenshtein_ratio_and_distance(s string, t string, ratio_calc bool) string 
 				} else {
 					cost = 1
 				}
-				distance[row][col] = MinOf(distance[row-1][col]+1, // Cost of deletions
-					distance[row][col-1]+1,      // Cost of insertions
-					distance[row-1][col-1]+cost) // Cost of substitutions
 			}
+
+			distance[row][col] = MinOf(distance[row-1][col]+1, // Cost of deletions
+				distance[row][col-1]+1,      // Cost of insertions
+				distance[row-1][col-1]+cost) // Cost of substitutions
+
 		}
 	}
-	fmt.Println(distance)
-    fmt.Println(row)
-    fmt.Println(col)        
 
 	if ratio_calc == true {
 		// Computation of the Levenshtein Distance Ratio
-		ratio := ((len(s) + len(t)) - distance[row][col]) / (len(s) + len(t))
-		return strconv.Itoa(ratio)
+		ratio := ((rowf + colf) - convertToFloat(distance[row][col])) / (rowf + colf)
+		return fmt.Sprintf("%g", ratio)
 	} else {
 		// print(distance) # Uncomment if you want to see the matrix showing how the algorithm computes the cost of deletions,
 		// insertions and/or substitutions
@@ -79,5 +88,5 @@ func levenshtein_ratio_and_distance(s string, t string, ratio_calc bool) string 
 }
 
 func main() {
-	fmt.Println(levenshtein_ratio_and_distance("ah", "bedla", false))
+	fmt.Println(levenshtein_ratio_and_distance("ah", "bedla", true))
 }
