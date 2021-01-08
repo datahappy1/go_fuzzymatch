@@ -80,7 +80,7 @@ func LevenshteinRatioAndDistance(s string, t string, ratioCalc bool) string {
 		return fmt.Sprintf("%g", ratio)
 	}
 	// fmt.Println(distance)
-	//Uncomment if you want to see the matrix showing how the algorithm computes the cost of deletions,
+	// Uncomment if you want to see the matrix showing how the algorithm computes the cost of deletions,
 	// insertions and/or substitutions
 	// This is the minimum number of edits needed to convert string a to string b
 	return fmt.Sprintf("The strings are %d edits away", distance[rowLength][colLength])
