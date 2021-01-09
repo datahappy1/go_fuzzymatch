@@ -3,7 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
+	"regexp"
 	"strings"
+
+	prmt "github.com/gitchander/permutation"
 )
 
 func convertToFloat(i int) float64 {
@@ -28,42 +32,16 @@ func splitStringToArrayByWhitespace(s string) []string {
 	return splitStringArray
 }
 
-func join(ins []rune, c rune) (result []string) {
-	for i := 0; i <= len(ins); i++ {
-		result = append(result, string(ins[:i])+string(c)+string(ins[i:]))
+// RemoveNonAlphaChars returns string
+func RemoveNonAlphaChars(s string) string {
+	reg, err := regexp.Compile("[^a-zA-Z0-9 ]+")
+	if err != nil {
+		log.Fatal(err)
 	}
-	return
+	return reg.ReplaceAllString(s, "")
 }
 
-func permutations(testStr string) []string {
-	var n func(testStr []rune, p []string) []string
-	n = func(testStr []rune, p []string) []string {
-		if len(testStr) == 0 {
-			return p
-		} else {
-			result := []string{}
-			for _, e := range p {
-				result = append(result, join([]rune(e), testStr[0])...)
-			}
-			return n(testStr[1:], result)
-		}
-	}
-
-	output := []rune(testStr)
-	return n(output[1:], []string{string(output[0])})
-}
-
-func getPermutations() []string {
-	d := permutations("ABCD")
-	fmt.Print(d)
-	return d
-}
-
-//func RemoveNonAlphaChars(s string) string{
-//	return s
-//}
-
-// Levenshtein Ratio and Distance function
+// LevenshteinRatioAndDistance returns string
 func LevenshteinRatioAndDistance(s1 string, s2 string, ratioCalc bool) string {
 	var rowLength int = len(s1)
 	var colLength int = len(s2)
@@ -136,14 +114,27 @@ func main() {
 	ratioCalcPtr := flag.Bool("ratioCalc", true, "calculate ratio")
 	flag.Parse()
 
-	//xs1 := RemoveNonAlphaChars(*string1Ptr)
-	//xs2 := RemoveNonAlphaChars(*string2Ptr)
-	// continue working with strings without non alpha chars
+	String1 := strings.ToLower(RemoveNonAlphaChars(*string1Ptr))
+	String2 := strings.ToLower(RemoveNonAlphaChars(*string2Ptr))
 
-	fmt.Println(splitStringToArrayByWhitespace(*string1Ptr))
-	if len(splitStringToArrayByWhitespace(*string1Ptr)) > 1 && len(splitStringToArrayByWhitespace(*string2Ptr)) > 1 {
-		string1permutations := getPermutations(splitStringToArrayByWhitespace(*string1Ptr))
-		string2permutations := getPermutations(splitStringToArrayByWhitespace(*string2Ptr))
+	//fmt.Println(String1)
+	//fmt.Println(splitStringToArrayByWhitespace(String1))
+
+	// start permutation stuff
+	splitString1 := splitStringToArrayByWhitespace(String1)
+	splitString2 := splitStringToArrayByWhitespace(String2)
+
+	if len(splitString1) > 1 && len(splitString2) > 1 {
+		p := prmt.New(prmt.StringSlice(splitString1))
+		for p.Next() {
+			// fmt.Println(splitString1)
+			// fmt.Println(strings.Join(splitString1, " "))
+			// fmt.Println(String2)
+			fmt.Println(LevenshteinRatioAndDistance(strings.Join(splitString1, " "), String2, *ratioCalcPtr))
+			
+			// fmt.Println("---")
+		}
+	} else {
+		fmt.Println(LevenshteinRatioAndDistance(String1, String2, *ratioCalcPtr))
 	}
-	fmt.Println(LevenshteinRatioAndDistance(strings.ToLower(*string1Ptr), strings.ToLower(*string2Ptr), *ratioCalcPtr))
 }
