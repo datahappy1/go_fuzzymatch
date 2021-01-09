@@ -24,6 +24,16 @@ func minOf(vars ...int) int {
 	return min
 }
 
+// func maxOf(slice []) int {
+// 	max := vars[0]
+// 	for _, i := range vars {
+// 		if max < i {
+// 			max = i
+// 		}
+// 	}
+// 	return max
+// }
+
 func splitStringToArrayByWhitespace(s string) []string {
 	var splitStringArray []string
 	for _, word := range strings.Fields(s) {
@@ -124,16 +134,19 @@ func main() {
 	splitString1 := splitStringToArrayByWhitespace(String1)
 	splitString2 := splitStringToArrayByWhitespace(String2)
 
+	outputSlice := []string{}
+
 	if len(splitString1) > 1 && len(splitString2) > 1 {
 		p := prmt.New(prmt.StringSlice(splitString1))
 		for p.Next() {
 			// fmt.Println(splitString1)
 			// fmt.Println(strings.Join(splitString1, " "))
 			// fmt.Println(String2)
-			fmt.Println(LevenshteinRatioAndDistance(strings.Join(splitString1, " "), String2, *ratioCalcPtr))
-			
+			//fmt.Println(LevenshteinRatioAndDistance(strings.Join(splitString1, " "), String2, *ratioCalcPtr))
+			outputSlice = append(outputSlice, LevenshteinRatioAndDistance(strings.Join(splitString1, " "), String2, *ratioCalcPtr))
 			// fmt.Println("---")
 		}
+		fmt.Println(outputSlice)
 	} else {
 		fmt.Println(LevenshteinRatioAndDistance(String1, String2, *ratioCalcPtr))
 	}
