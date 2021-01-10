@@ -10,8 +10,8 @@ import (
 	prmt "github.com/datahappy1/permutation"
 )
 
-func convertToFloat(i int) float64 {
-	return float64(i)
+func convertToFloat(i int) float32 {
+	return float32(i)
 }
 
 func minOf(vars ...int) int {
@@ -24,7 +24,7 @@ func minOf(vars ...int) int {
 	return min
 }
 
-func maxOf(slice []float64) float64 {
+func maxOf(slice []float32) float32 {
 	max := slice[0]
 	for _, i := range slice {
 		if max < i {
@@ -52,7 +52,7 @@ func RemoveNonAlphaChars(s string) string {
 }
 
 // LevenshteinRatio returns string
-func LevenshteinRatio(s1 string, s2 string) float64 {
+func LevenshteinRatio(s1 string, s2 string) float32 {
 	var rowLength int = len(s1)
 	var colLength int = len(s2)
 	var rows int = rowLength + 1
@@ -115,25 +115,26 @@ func main() {
 	String1 := strings.ToLower(RemoveNonAlphaChars(*string1Ptr))
 	String2 := strings.ToLower(RemoveNonAlphaChars(*string2Ptr))
 
-	//fmt.Println(String1)
-	//fmt.Println(splitStringToArrayByWhitespace(String1))
-
 	// start permutation stuff
 	splitString1 := splitStringToArrayByWhitespace(String1)
 	splitString2 := splitStringToArrayByWhitespace(String2)
 
-	outputSlice := []float64{}
+	outputSlice := []float32{}
 
 	if len(splitString1) > 1 && len(splitString2) > 1 {
 		p := prmt.New(prmt.StringSlice(splitString1))
 		for p.Next() {
-			// fmt.Println(splitString1)
-			// fmt.Println(strings.Join(splitString1, " "))
-			// fmt.Println(String2)
-			// fmt.Println(LevenshteinRatioAndDistance(strings.Join(splitString1, " "), String2, *ratioCalcPtr))
 			outputSlice = append(outputSlice, LevenshteinRatio(strings.Join(splitString1, " "), String2))
-
-			// fmt.Println("---")
+		}
+		fmt.Println(maxOf(outputSlice))
+	} else if len(splitString1) > 1 && len(splitString2) == 1 {
+		for _, splitString1Item := range splitString1 {
+			outputSlice = append(outputSlice, LevenshteinRatio(splitString1Item, String2))
+		}
+		fmt.Println(maxOf(outputSlice))
+	} else if len(splitString1) == 1 && len(splitString2) > 1 {
+		for _, splitString2Item := range splitString2 {
+			outputSlice = append(outputSlice, LevenshteinRatio(String1, splitString2Item))
 		}
 		fmt.Println(maxOf(outputSlice))
 	} else {
