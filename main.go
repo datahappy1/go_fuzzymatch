@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	prmt "github.com/gitchander/permutation"
+	prmt "github.com/datahappy1/permutation"
 )
 
 func convertToFloat(i int) float64 {
@@ -24,15 +24,15 @@ func minOf(vars ...int) int {
 	return min
 }
 
-// func maxOf(slice []) int {
-// 	max := vars[0]
-// 	for _, i := range vars {
-// 		if max < i {
-// 			max = i
-// 		}
-// 	}
-// 	return max
-// }
+func maxOf(slice []float64) float64 {
+	max := slice[0]
+	for _, i := range slice {
+		if max < i {
+			max = i
+		}
+	}
+	return max
+}
 
 func splitStringToArrayByWhitespace(s string) []string {
 	var splitStringArray []string
@@ -51,8 +51,8 @@ func RemoveNonAlphaChars(s string) string {
 	return reg.ReplaceAllString(s, "")
 }
 
-// LevenshteinRatioAndDistance returns string
-func LevenshteinRatioAndDistance(s1 string, s2 string, ratioCalc bool) string {
+// LevenshteinRatio returns string
+func LevenshteinRatio(s1 string, s2 string) float64 {
 	var rowLength int = len(s1)
 	var colLength int = len(s2)
 	var rows int = rowLength + 1
@@ -88,12 +88,8 @@ func LevenshteinRatioAndDistance(s1 string, s2 string, ratioCalc bool) string {
 				cost = 0 // If the characters are the same in the two strings in a given position [i,j] then the cost is 0
 			} else {
 				// In order to align the results with those of the Python Levenshtein package, if we choose to calculate the ratio
-				// the cost of a substitution is 2. If we calculate just distance, then the cost of a substitution is 1.
-				if ratioCalc == true {
-					cost = 2
-				} else {
-					cost = 1
-				}
+				// the cost of a substitution is 2.
+				cost = 2
 			}
 
 			distance[row][col] = minOf(
@@ -104,24 +100,16 @@ func LevenshteinRatioAndDistance(s1 string, s2 string, ratioCalc bool) string {
 		}
 	}
 
-	if ratioCalc == true {
-		// Computation of the Levenshtein Distance Ratio
-		ratio := (convertToFloat(rowLength+colLength) - convertToFloat(distance[rowLength][colLength])) /
-			convertToFloat(rowLength+colLength)
-		return fmt.Sprintf("%g", ratio)
-	}
-	// fmt.Println(distance)
-	// Uncomment if you want to see the matrix showing how the algorithm computes the cost of deletions,
-	// insertions and/or substitutions
-	// This is the minimum number of edits needed to convert string a to string b
-	return fmt.Sprintf("The strings are %d edits away", distance[rowLength][colLength])
-
+	// Computation of the Levenshtein Distance Ratio
+	ratio := (convertToFloat(rowLength+colLength) - convertToFloat(distance[rowLength][colLength])) /
+		convertToFloat(rowLength+colLength)
+	//return fmt.Sprintf("%g", ratio)
+	return ratio
 }
 
 func main() {
 	string1Ptr := flag.String("string1", "a", "first string")
 	string2Ptr := flag.String("string2", "b", "second string")
-	ratioCalcPtr := flag.Bool("ratioCalc", true, "calculate ratio")
 	flag.Parse()
 
 	String1 := strings.ToLower(RemoveNonAlphaChars(*string1Ptr))
@@ -134,7 +122,7 @@ func main() {
 	splitString1 := splitStringToArrayByWhitespace(String1)
 	splitString2 := splitStringToArrayByWhitespace(String2)
 
-	outputSlice := []string{}
+	outputSlice := []float64{}
 
 	if len(splitString1) > 1 && len(splitString2) > 1 {
 		p := prmt.New(prmt.StringSlice(splitString1))
@@ -142,12 +130,13 @@ func main() {
 			// fmt.Println(splitString1)
 			// fmt.Println(strings.Join(splitString1, " "))
 			// fmt.Println(String2)
-			//fmt.Println(LevenshteinRatioAndDistance(strings.Join(splitString1, " "), String2, *ratioCalcPtr))
-			outputSlice = append(outputSlice, LevenshteinRatioAndDistance(strings.Join(splitString1, " "), String2, *ratioCalcPtr))
+			// fmt.Println(LevenshteinRatioAndDistance(strings.Join(splitString1, " "), String2, *ratioCalcPtr))
+			outputSlice = append(outputSlice, LevenshteinRatio(strings.Join(splitString1, " "), String2))
+
 			// fmt.Println("---")
 		}
-		fmt.Println(outputSlice)
+		fmt.Println(maxOf(outputSlice))
 	} else {
-		fmt.Println(LevenshteinRatioAndDistance(String1, String2, *ratioCalcPtr))
+		fmt.Println(LevenshteinRatio(String1, String2))
 	}
 }
