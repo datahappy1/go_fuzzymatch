@@ -11,16 +11,16 @@ import (
 	prmt "github.com/datahappy1/permutation"
 )
 
-type matchedString struct {
+type evaluatedString struct {
 	value                       string
 	valueByWordSplitArray       []string
 	valueByWordSplitArrayLength int
 }
 
-func createMatchedString(v string) *matchedString {
+func createEvaluatedString(v string) *evaluatedString {
 	processedInputString := strings.ToLower(removeUnusedChars(v))
 	stringWordSplit := splitStringToUniqueValuesSliceByWhitespace(processedInputString)
-	s := matchedString{
+	s := evaluatedString{
 		value:                       processedInputString,
 		valueByWordSplitArray:       stringWordSplit,
 		valueByWordSplitArrayLength: len(stringWordSplit)}
@@ -139,8 +139,8 @@ func Match(s1 string, s2 string) float32 {
 		return 1
 	}
 
-	String1 := createMatchedString(s1)
-	String2 := createMatchedString(s2)
+	String1 := createEvaluatedString(s1)
+	String2 := createEvaluatedString(s2)
 	outputSlice := []float32{}
 
 	if String1.valueByWordSplitArrayLength > 1 && String2.valueByWordSplitArrayLength > 1 {
@@ -168,8 +168,8 @@ func MatchDeepDive(s1 string, s2 string) float32 {
 		return 1
 	}
 
-	String1 := createMatchedString(s1)
-	String2 := createMatchedString(s2)
+	String1 := createEvaluatedString(s1)
+	String2 := createEvaluatedString(s2)
 	outputSlice := []float32{}
 
 	if String1.valueByWordSplitArrayLength < String2.valueByWordSplitArrayLength {
