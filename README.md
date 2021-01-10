@@ -10,7 +10,7 @@ This tool implicitely preformats the input strings using these actions:
 
 - removes non-alphabetical chars and non-digits
 
-  
+- in case the input string can be split to an array of words by whitespace, the array items are unique  
 
 This tool is able to operate in two modes:
 
