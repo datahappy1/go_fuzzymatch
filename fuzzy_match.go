@@ -173,20 +173,16 @@ func MatchDeepDive(s1 string, s2 string) float32 {
 	var outputSlice []float32
 
 	if String1.valueByWordSplitArrayLength < String2.valueByWordSplitArrayLength {
-		splitString2ArraySliced := String2.valueByWordSplitArray[0:String1.valueByWordSplitArrayLength]
-		splitString2ArraySlicedJoined := strings.Join(splitString2ArraySliced, " ")
-		p := prmt.New(prmt.StringSlice(String1.valueByWordSplitArray))
-		for p.Next() {
-			//fmt.Println(strings.Join(String1.valueByWordSplitArray, " ") ,splitString2ArraySlicedJoined, LevenshteinRatio(strings.Join(String1.valueByWordSplitArray, " "), splitString2ArraySlicedJoined))
-			outputSlice = append(outputSlice, LevenshteinRatio(strings.Join(String1.valueByWordSplitArray, " "), splitString2ArraySlicedJoined))
-		}
-	} else {
-		splitString1ArraySliced := String1.valueByWordSplitArray[0:String2.valueByWordSplitArrayLength]
-		splitString1ArraySlicedJoined := strings.Join(splitString1ArraySliced, " ")
 		p := prmt.New(prmt.StringSlice(String2.valueByWordSplitArray))
 		for p.Next() {
-			//fmt.Println(strings.Join(String2.valueByWordSplitArray, " ") ,splitString1ArraySlicedJoined, LevenshteinRatio(strings.Join(String2.valueByWordSplitArray, " "), splitString1ArraySlicedJoined))
-			outputSlice = append(outputSlice, LevenshteinRatio(strings.Join(String2.valueByWordSplitArray, " "), splitString1ArraySlicedJoined))
+			outputSlice = append(outputSlice, LevenshteinRatio(strings.Join(String1.valueByWordSplitArray, " "),
+				strings.Join(String2.valueByWordSplitArray[0:String1.valueByWordSplitArrayLength], " ")))
+		}
+	} else {
+		p := prmt.New(prmt.StringSlice(String1.valueByWordSplitArray))
+		for p.Next() {
+			outputSlice = append(outputSlice, LevenshteinRatio(strings.Join(String2.valueByWordSplitArray, " "),
+				strings.Join(String1.valueByWordSplitArray[0:String2.valueByWordSplitArrayLength], " ")))
 		}
 	}
 	return maxOfSliceOfFloats(outputSlice)
