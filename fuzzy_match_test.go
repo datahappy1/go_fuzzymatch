@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	match "github.com/datahappy1/go_levenshtein/match_core"
+	match "github.com/datahappy1/go_fuzzymatch/match_core"
 )
 
 func TestLevenshteinRatio(t *testing.T) {
