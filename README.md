@@ -43,9 +43,9 @@ Example results in `deepDive` mode:
 |Apple Inc|Apple|1|
 |aplle|Apple|0.8|
 |Apple Corp.|Apple Corp. GMBH|**1**|
-|GMBH Apple Corp|Apple Inc.|**0.6315789**|
-|apple Inc.|GMBH Apple Corp.|**0.6315789**|
-|aplle Inc.|GMBH Apple Corp.|**0.5263158**|
+|GMBH Apple Corp|Apple Inc.|**0.7368421**|
+|apple Inc.|GMBH Apple Corp.|**0.7368421**|
+|aplle Inc.|GMBH Apple Corp.|**0.6315789**|
 
 ## how to run:
 
