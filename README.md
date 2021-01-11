@@ -7,8 +7,8 @@ Fuzzy matching CLI tool written in Go. The matching calculation is done using [L
 This tool implicitly formats the input strings using these actions:
 
 - applies lowercase
-- removes non-alphabetical chars and non-digits
-- in case the input string can be split to an array of words by whitespace, the array items are unique  
+- processes only alphabetical chars and digits
+- in case the input string can be split by whitespace into an array of words, the array items are deduplicated  
 
 This tool is able to operate in two modes:
 - `simple` mode
