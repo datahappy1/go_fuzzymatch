@@ -85,11 +85,11 @@ func removeUnusedChars(s string) string {
 
 // LevenshteinRatio returns float32
 func LevenshteinRatio(s1 string, s2 string) float32 {
-	var rowLength int = len(s1)
-	var colLength int = len(s2)
-	var rows int = rowLength + 1
-	var cols int = colLength + 1
-	var cost int = 0
+	var rowLength = len(s1)
+	var colLength = len(s2)
+	var rows = rowLength + 1
+	var cols = colLength + 1
+	var cost = 0
 
 	// Initialize a rows length slice of empty slices
 	distance := make([][]int, rows)
@@ -141,7 +141,7 @@ func Match(s1 string, s2 string) float32 {
 
 	String1 := createEvaluatedString(s1)
 	String2 := createEvaluatedString(s2)
-	outputSlice := []float32{}
+	var outputSlice []float32
 
 	if String1.valueByWordSplitArrayLength > 1 && String2.valueByWordSplitArrayLength > 1 {
 		sort.Strings(String1.valueByWordSplitArray)
@@ -170,13 +170,14 @@ func MatchDeepDive(s1 string, s2 string) float32 {
 
 	String1 := createEvaluatedString(s1)
 	String2 := createEvaluatedString(s2)
-	outputSlice := []float32{}
+	var outputSlice []float32
 
 	if String1.valueByWordSplitArrayLength < String2.valueByWordSplitArrayLength {
 		splitString2ArraySliced := String2.valueByWordSplitArray[0:String1.valueByWordSplitArrayLength]
 		splitString2ArraySlicedJoined := strings.Join(splitString2ArraySliced, " ")
 		p := prmt.New(prmt.StringSlice(String1.valueByWordSplitArray))
 		for p.Next() {
+			//fmt.Println(strings.Join(String1.valueByWordSplitArray, " ") ,splitString2ArraySlicedJoined, LevenshteinRatio(strings.Join(String1.valueByWordSplitArray, " "), splitString2ArraySlicedJoined))
 			outputSlice = append(outputSlice, LevenshteinRatio(strings.Join(String1.valueByWordSplitArray, " "), splitString2ArraySlicedJoined))
 		}
 	} else {
@@ -184,6 +185,7 @@ func MatchDeepDive(s1 string, s2 string) float32 {
 		splitString1ArraySlicedJoined := strings.Join(splitString1ArraySliced, " ")
 		p := prmt.New(prmt.StringSlice(String2.valueByWordSplitArray))
 		for p.Next() {
+			//fmt.Println(strings.Join(String2.valueByWordSplitArray, " ") ,splitString1ArraySlicedJoined, LevenshteinRatio(strings.Join(String2.valueByWordSplitArray, " "), splitString1ArraySlicedJoined))
 			outputSlice = append(outputSlice, LevenshteinRatio(strings.Join(String2.valueByWordSplitArray, " "), splitString1ArraySlicedJoined))
 		}
 	}
