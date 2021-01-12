@@ -34,7 +34,7 @@ func removeUnusedChars(s string) string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return reg.ReplaceAllString(s, "")
+	return reg.ReplaceAllString(s, " ")
 }
 
 func appendStringToSliceIfMissing(slice []string, i string) []string {
