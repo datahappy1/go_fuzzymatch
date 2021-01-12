@@ -1,5 +1,6 @@
 package match
 
+// Match type
 type Match struct {
 	Strategy strategy
 }
