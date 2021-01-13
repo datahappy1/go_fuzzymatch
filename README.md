@@ -2,7 +2,7 @@
 
 ## description:
 
-Fuzzy matching CLI tool written in Go. The matching calculation is done using [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance). 
+Fuzzy matching CLI tool written in Go. The string distance matching calculation is done using [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance). 
 
 This tool implicitly formats the input strings using these actions:
 
@@ -10,13 +10,13 @@ This tool implicitly formats the input strings using these actions:
 - processes only alphabetical chars and digits
 - in case the input string can be split by whitespace into an array of words, the array items are deduplicated  
 
-This tool is able to operate in two modes:
+This tool is able to operate in three modes:
 - `simple` mode
 - `deepDive` mode
 - `combined` mode
 
-### Simple mode:
->Simple mode is faster but less precise when comparing multi-word strings.
+### simple mode:
+>simple mode is faster but less precise when comparing multi-word strings.
 
 Example results in `simple` mode:
 |string 1  |string 2  |calculated output  |
@@ -32,8 +32,8 @@ Example results in `simple` mode:
 |aplle Inc.|GMBH Apple Corp.|0.5|
 
 
-### DeepDive mode:
-> DeepDive mode is slower but goes more in depth when comparing multi-word strings using permutations. If DeepDive mode
+### deepDive mode:
+> deepDive mode is slower but goes more in depth when comparing multi-word strings using permutations. If deepDive mode
 >is provided with two single word strings for comparison, it behaves exactly like the simple mode.
 
 Example results in `deepDive` mode:
@@ -49,8 +49,8 @@ Example results in `deepDive` mode:
 |apple Inc.|GMBH Apple Corp.|**0.7368421**|
 |aplle Inc.|GMBH Apple Corp.|**0.6315789**|
 
-### Combined mode:
-> Combined mode starts with simple mode and if no match above `0.85`, goes for a deepDive mode.
+### combined mode:
+> combined mode starts with simple mode and if no match above `0.85`, goes for a deepDive mode.
 
 
 ## how to run:
