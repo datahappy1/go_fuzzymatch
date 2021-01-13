@@ -30,7 +30,7 @@ func LevenshteinRatio(s1 string, s2 string) float32 {
 	var colLength = len(s2)
 	var rows = rowLength + 1
 	var cols = colLength + 1
-	var cost = 0
+	cost := 0
 
 	// Initialize a rows length slice of empty slices
 	distance := make([][]int, rows)
