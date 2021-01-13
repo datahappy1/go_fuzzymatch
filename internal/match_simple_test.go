@@ -10,15 +10,15 @@ func TestMatchSimple(t *testing.T) {
 		s1, s2 string
 		want   float32
 	}{
-		{"apple inc", "apple inc", 1},
-		{"apple inc", "Apple Inc.", 1},
-		{"Apple", "Apple Inc.", 1},
-		{"Apple Inc", "Apple", 1},
-		{"aplle", "Apple", 0.8},
-		{"Apple Corp.", "Apple Corp. GMBH", 0.8},
-		{"GMBH Apple Corp", "Apple Inc.", 0.5833333},
-		{"apple Inc.", "GMBH Apple Corp.", 0.5833333},
-		{"aplle Inc.", "GMBH Apple Corp.", 0.5},
+		{s1: "apple inc", s2: "apple inc", want: 1},
+		{s1: "apple inc", s2: "Apple Inc.", want: 1},
+		{s1: "Apple", s2: "Apple Inc.", want: 1},
+		{s1: "Apple Inc", s2: "Apple", want: 1},
+		{s1: "aplle", s2: "Apple", want: 0.8},
+		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: 0.8},
+		{s1: "GMBH Apple Corp", s2: "Apple Inc.", want: 0.5833333},
+		{s1: "apple Inc.", s2: "GMBH Apple Corp.", want: 0.5833333},
+		{s1: "aplle Inc.", s2: "GMBH Apple Corp.", want: 0.5},
 	}
 	var m = &Match{}
 	m.Strategy = Simple{}
