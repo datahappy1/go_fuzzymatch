@@ -12,13 +12,11 @@ func TestCalculateLevenshteinForPermutations(t *testing.T) {
 	}{
 		{s1: "apple inc", s2: "apple inc", want: []float32{1, 0.5555556}},
 		{s1: "apple inc", s2: "Apple Inc.", want: []float32{1, 0.5555556}},
-		{s1: "Apple", s2: "Apple Inc.", want: []float32{1, 0}},
-		{s1: "Apple Inc", s2: "Apple", want: []float32{1}},
-		{s1: "aplle", s2: "Apple", want: []float32{1}},
-		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: []float32{1, 2, 3}},
-		{s1: "GMBH Apple Corp", s2: "Apple Inc.", want: []float32{1, 2, 3}},
-		{s1: "apple Inc.", s2: "GMBH Apple Corp.", want: []float32{1, 2, 3}},
-		{s1: "aplle Inc.", s2: "GMBH Apple Corp.", want: []float32{1, 2, 3}},
+		{s1: "Apple", s2: "Apple Inc", want: []float32{1, 0}},
+		{s1: "aplle", s2: "Apple", want: []float32{0.8}},
+		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: []float32{1, 0.5, 0.5, 0.6, 0.42105263, 0.5263158}},
+		{s1: "Apple Inc.", s2: "GMBH Apple Corp", want: []float32{0.5263158, 0.6315789, 0.22222222, 0.22222222, 0.7368421, 0.5263158}},
+		{s1: "Aplle Inc.", s2: "GMBH Apple Corp", want: []float32{0.42105263, 0.5263158, 0.22222222, 0.22222222, 0.6315789, 0.42105263}},
 	}
 
 	for _, tt := range tests {
@@ -31,6 +29,7 @@ func TestCalculateLevenshteinForPermutations(t *testing.T) {
 			ans := calculateLevenshteinForPermutations(*staticString, *permutableString)
 			if len(ans) != len(tt.want) {
 				t.Errorf("got %g, want %g", ans, tt.want)
+				t.FailNow()
 			}
 			for i, v := range ans {
 				if v != tt.want[i] {
@@ -46,15 +45,15 @@ func TestMatchDeepDive(t *testing.T) {
 		s1, s2 string
 		want   float32
 	}{
-		{"apple inc", "apple inc", 1},
-		{"apple inc", "Apple Inc.", 1},
-		{"Apple", "Apple Inc.", 1},
-		{"Apple Inc", "Apple", 1},
-		{"aplle", "Apple", 0.8},
-		{"Apple Corp.", "Apple Corp. GMBH", 1},
-		{"GMBH Apple Corp", "Apple Inc.", 0.7368421},
-		{"apple Inc.", "GMBH Apple Corp.", 0.7368421},
-		{"aplle Inc.", "GMBH Apple Corp.", 0.6315789},
+		{s1: "apple inc", s2: "apple inc", want: 1},
+		{s1: "apple inc", s2: "Apple Inc.", want: 1},
+		{s1: "Apple", s2: "Apple Inc.", want: 1},
+		{s1: "Apple Inc", s2: "Apple", want: 1},
+		{s1: "aplle", s2: "Apple", want: 0.8},
+		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: 1},
+		{s1: "GMBH Apple Corp", s2: "Apple Inc.", want: 0.7368421},
+		{s1: "apple Inc.", s2: "GMBH Apple Corp.", want: 0.7368421},
+		{s1: "aplle Inc.", s2: "GMBH Apple Corp.", want: 0.6315789},
 	}
 	var m = &Match{}
 	m.Strategy = DeepDive{}
