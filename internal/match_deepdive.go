@@ -27,10 +27,6 @@ func calculateLevenshteinForPermutations(staticString evaluatedString, permutabl
 }
 
 func (DeepDive) matchStrings(s1 string, s2 string) float32 {
-	if checkInputStringsEqual(s1, s2) == true {
-		return 1
-	}
-
 	String1 := createEvaluatedString(s1)
 	String2 := createEvaluatedString(s2)
 	var outputSlice []float32

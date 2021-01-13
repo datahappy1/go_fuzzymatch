@@ -22,13 +22,6 @@ func createEvaluatedString(v string) *evaluatedString {
 	return &s
 }
 
-func checkInputStringsEqual(s1 string, s2 string) bool {
-	if s1 == s2 {
-		return true
-	}
-	return false
-}
-
 func removeUnusedChars(s string) string {
 	reg, err := regexp.Compile("[^a-zA-Z0-9 ]+")
 	if err != nil {
