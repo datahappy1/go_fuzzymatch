@@ -10,7 +10,7 @@ import (
 func main() {
 	string1Ptr := flag.String("string1", "", "first string")
 	string2Ptr := flag.String("string2", "", "second string")
-	deepDive := flag.Bool("deepDive", false, "deep dive")
+	mode := flag.String("mode", "simple", "mode < simple | deepDive | combined >")
 	flag.Parse()
 
 	if *string1Ptr == *string2Ptr {
@@ -19,12 +19,17 @@ func main() {
 		fmt.Println(0)
 	} else {
 		var m = &match.Match{}
-		if *deepDive == true {
+		if *mode == "simple" {
 			m.Strategy = match.DeepDive{}
 			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
-		} else {
+		} else if *mode == "deepDive" {
 			m.Strategy = match.Simple{}
 			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
+		} else if *mode == "combined" {
+			m.Strategy = match.Combined{}
+			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
+		} else {
+			fmt.Println("Unknown mode argument value, options are: simple, deepDive, combined")
 		}
 	}
 }
