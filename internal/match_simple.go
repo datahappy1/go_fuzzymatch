@@ -8,11 +8,11 @@ import (
 // Simple returns struct
 type Simple struct{}
 
-func calculateLevenshteinForIterations(staticString evaluatedString, permutableString evaluatedString) []float32 {
+func calculateLevenshteinForIterations(staticString evaluatedString, iterableString evaluatedString) []float32 {
 	var outputSlice []float32
 
-	for _, permutableStringItem := range permutableString.valueByWordSplitArray {
-		outputSlice = append(outputSlice, LevenshteinRatio(permutableStringItem, staticString.value))
+	for _, iterableStringItem := range iterableString.valueByWordSplitArray {
+		outputSlice = append(outputSlice, LevenshteinRatio(iterableStringItem, staticString.value))
 	}
 
 	return outputSlice

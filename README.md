@@ -33,8 +33,8 @@ Example results in `simple` mode:
 
 
 ### deepDive mode:
-> deepDive mode is slower but goes more in depth when comparing multi-word strings using permutations. If deepDive mode
->is provided with two single word strings for comparison, it behaves exactly like the simple mode.
+> deepDive mode is slower but goes more in depth when comparing multi-word strings using permutations. 
+> If deepDive mode is provided with two single word strings for comparison, it behaves like simple mode.
 
 Example results in `deepDive` mode:
 |string 1  |string 2  |calculated output  |
