@@ -12,7 +12,8 @@ This tool implicitly formats the input strings using these actions:
 
 This tool is able to operate in two modes:
 - `simple` mode
-- `deep dive` mode
+- `deepDive` mode
+- `combined` mode
 
 ### Simple mode:
 >Simple mode is faster but less precise when comparing multi-word strings.
@@ -31,8 +32,9 @@ Example results in `simple` mode:
 |aplle Inc.|GMBH Apple Corp.|0.5|
 
 
-### Deep dive mode:
-> Deep dive mode is slower but goes more in depth when comparing multi-word strings using permutations.
+### DeepDive mode:
+> DeepDive mode is slower but goes more in depth when comparing multi-word strings using permutations. If DeepDive mode
+>is provided with two single word strings for comparison, it behaves exactly like the simple mode.
 
 Example results in `deepDive` mode:
 |string 1  |string 2  |calculated output  |
@@ -47,6 +49,10 @@ Example results in `deepDive` mode:
 |apple Inc.|GMBH Apple Corp.|**0.7368421**|
 |aplle Inc.|GMBH Apple Corp.|**0.6315789**|
 
+### Combined mode:
+> Combined mode starts with simple mode and if no match above `0.85`, goes for a deepDive mode.
+
+
 ## how to run:
 
-`go run fuzzy_match.go -string1="apple" -string2="Apple inc." -deepDive=true|false`
+`go run fuzzy_match.go -string1="apple" -string2="Apple inc." -mode=simple|deepDive|combined`

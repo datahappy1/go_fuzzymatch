@@ -8,6 +8,16 @@ import (
 // Simple returns struct
 type Simple struct{}
 
+func calculateLevenshteinForIterations(staticString evaluatedString, permutableString evaluatedString) []float32 {
+	var outputSlice []float32
+
+	for _, permutableStringItem := range permutableString.valueByWordSplitArray {
+		outputSlice = append(outputSlice, LevenshteinRatio(permutableStringItem, staticString.value))
+	}
+
+	return outputSlice
+}
+
 func (Simple) matchStrings(s1 string, s2 string) float32 {
 	String1 := createEvaluatedString(s1)
 	String2 := createEvaluatedString(s2)
@@ -16,16 +26,13 @@ func (Simple) matchStrings(s1 string, s2 string) float32 {
 	if String1.valueByWordSplitArrayLength > 1 && String2.valueByWordSplitArrayLength > 1 {
 		sort.Strings(String1.valueByWordSplitArray)
 		sort.Strings(String2.valueByWordSplitArray)
-		return LevenshteinRatio(strings.Join(String1.valueByWordSplitArray, " "), strings.Join(String2.valueByWordSplitArray, " "))
-	} else if String1.valueByWordSplitArrayLength > 1 && String2.valueByWordSplitArrayLength == 1 {
-		for _, splitString1Item := range String1.valueByWordSplitArray {
-			outputSlice = append(outputSlice, LevenshteinRatio(splitString1Item, String2.value))
-		}
-		return maxOfSliceOfFloats(outputSlice)
+		return LevenshteinRatio(strings.Join(String1.valueByWordSplitArray, " "),
+			strings.Join(String2.valueByWordSplitArray, " "))
 	} else if String1.valueByWordSplitArrayLength == 1 && String2.valueByWordSplitArrayLength > 1 {
-		for _, splitString2Item := range String2.valueByWordSplitArray {
-			outputSlice = append(outputSlice, LevenshteinRatio(String1.value, splitString2Item))
-		}
+		outputSlice = calculateLevenshteinForIterations(*String1, *String2)
+		return maxOfSliceOfFloats(outputSlice)
+	} else if String1.valueByWordSplitArrayLength > 1 && String2.valueByWordSplitArrayLength == 1 {
+		outputSlice = calculateLevenshteinForIterations(*String2, *String1)
 		return maxOfSliceOfFloats(outputSlice)
 	} else {
 		return LevenshteinRatio(String1.value, String2.value)

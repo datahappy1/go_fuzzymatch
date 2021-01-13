@@ -10,6 +10,7 @@ func TestCalculateLevenshteinForPermutations(t *testing.T) {
 		s1, s2 string
 		want   []float32
 	}{
+		{s1: "aplle", s2: "tree", want: []float32{0.22222222}},
 		{s1: "apple inc", s2: "apple inc", want: []float32{1, 0.5555556}},
 		{s1: "apple inc", s2: "Apple Inc.", want: []float32{1, 0.5555556}},
 		{s1: "Apple", s2: "Apple Inc", want: []float32{1, 0}},
@@ -45,6 +46,7 @@ func TestMatchDeepDive(t *testing.T) {
 		s1, s2 string
 		want   float32
 	}{
+		{s1: "aplle", s2: "tree", want: 0.22222222},
 		{s1: "apple inc", s2: "apple inc", want: 1},
 		{s1: "apple inc", s2: "Apple Inc.", want: 1},
 		{s1: "Apple", s2: "Apple Inc.", want: 1},

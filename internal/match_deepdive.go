@@ -31,7 +31,9 @@ func (DeepDive) matchStrings(s1 string, s2 string) float32 {
 	String2 := createEvaluatedString(s2)
 	var outputSlice []float32
 
-	if String1.valueByWordSplitArrayLength < String2.valueByWordSplitArrayLength {
+	if String1.valueByWordSplitArrayLength == 1 && String2.valueByWordSplitArrayLength == 1 {
+		return LevenshteinRatio(String1.value, String2.value)
+	} else if String1.valueByWordSplitArrayLength < String2.valueByWordSplitArrayLength {
 		outputSlice = calculateLevenshteinForPermutations(*String1, *String2)
 	} else {
 		outputSlice = calculateLevenshteinForPermutations(*String2, *String1)
