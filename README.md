@@ -33,7 +33,8 @@ Example results in `simple` mode:
 
 
 ### DeepDive mode:
-> DeepDive mode is slower but goes more in depth when comparing multi-word strings using permutations.
+> DeepDive mode is slower but goes more in depth when comparing multi-word strings using permutations. If DeepDive mode
+>is provided with two single word strings for comparison, it behaves exactly like the simple mode.
 
 Example results in `deepDive` mode:
 |string 1  |string 2  |calculated output  |
@@ -49,7 +50,7 @@ Example results in `deepDive` mode:
 |aplle Inc.|GMBH Apple Corp.|**0.6315789**|
 
 ### Combined mode:
-> Combined mode starts with simple mode and if no match above `0.85`, goes for a deepDive search
+> Combined mode starts with simple mode and if no match above `0.85`, goes for a deepDive mode.
 
 
 ## how to run:
