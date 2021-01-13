@@ -10,13 +10,13 @@ func TestCalculateLevenshteinForIterations(t *testing.T) {
 		s1, s2 string
 		want   []float32
 	}{
-		{s1: "apple inc", s2: "apple", want: []float32{1, 0}},
-		{s1: "Apple Inc.", s2: "apple", want: []float32{1, 0}},
-		{s1: "Apple Inc", s2: "Apple", want: []float32{1, 0}},
-		{s1: "Apple", s2: "aplle", want: []float32{0.8}},
-		{s1: "Apple Corp. GMBH", s2: "Apple", want: []float32{1, 0.22222222, 0}},
-		{s1: "GMBH Apple Corp", s2: "Apple", want: []float32{0, 1, 0.22222222}},
-		{s1: "GMBH Apple Corp", s2: "Aplle", want: []float32{0, 0.8, 0.22222222}},
+		{s1: "apple", s2: "apple inc", want: []float32{1, 0}},
+		{s1: "apple", s2: "Apple Inc.", want: []float32{1, 0}},
+		{s1: "Apple", s2: "Apple Inc", want: []float32{1, 0}},
+		{s1: "aplle", s2: "Apple", want: []float32{0.8}},
+		{s1: "Apple", s2: "Apple Corp. GMBH", want: []float32{1, 0.22222222, 0}},
+		{s1: "Apple", s2: "GMBH Apple Corp", want: []float32{0, 1, 0.22222222}},
+		{s1: "Aplle", s2: "GMBH Apple Corp", want: []float32{0, 0.8, 0.22222222}},
 	}
 
 	for _, tt := range tests {
