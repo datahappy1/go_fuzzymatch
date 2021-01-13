@@ -16,7 +16,7 @@ This tool is able to operate in three modes:
 - `combined` mode
 
 ### simple mode:
->simple mode is faster but less precise when comparing multi-word strings.
+> simple mode is faster but less precise when comparing multi-word strings.
 
 Example results in `simple` mode:
 |string 1  |string 2  |calculated output  |
@@ -34,7 +34,7 @@ Example results in `simple` mode:
 
 ### deepDive mode:
 > deepDive mode is slower but goes more in depth when comparing multi-word strings using permutations. 
-> If deepDive mode is provided with two single word strings for comparison, it behaves like simple mode.
+> If deepDive mode is provided with two single word strings for comparison, it evaluates the strings like in simple mode.
 
 Example results in `deepDive` mode:
 |string 1  |string 2  |calculated output  |
@@ -50,7 +50,7 @@ Example results in `deepDive` mode:
 |aplle Inc.|GMBH Apple Corp.|**0.6315789**|
 
 ### combined mode:
-> combined mode starts with simple mode and if no match above `0.85`, goes for a deepDive mode.
+> combined mode starts strings evaluation using simple mode and if no match above `0.85` is found, it evaluates the strings again in a deepDive mode.
 
 
 ## how to run:
