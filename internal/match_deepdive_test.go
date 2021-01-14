@@ -8,16 +8,16 @@ import (
 func TestCalculateLevenshteinForPermutations(t *testing.T) {
 	var tests = []struct {
 		s1, s2 string
-		want   []float32
+		want   []uint16
 	}{
-		{s1: "aplle", s2: "tree", want: []float32{0.22222222}},
-		{s1: "apple inc", s2: "apple inc", want: []float32{1, 0.5555556}},
-		{s1: "apple inc", s2: "Apple Inc.", want: []float32{1, 0.5555556}},
-		{s1: "Apple", s2: "Apple Inc", want: []float32{1, 0}},
-		{s1: "aplle", s2: "Apple", want: []float32{0.8}},
-		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: []float32{1, 0.5, 0.5, 0.6, 0.42105263, 0.5263158}},
-		{s1: "Apple Inc.", s2: "GMBH Apple Corp", want: []float32{0.5263158, 0.6315789, 0.22222222, 0.22222222, 0.7368421, 0.5263158}},
-		{s1: "Aplle Inc.", s2: "GMBH Apple Corp", want: []float32{0.42105263, 0.5263158, 0.22222222, 0.22222222, 0.6315789, 0.42105263}},
+		{s1: "aplle", s2: "tree", want: []uint16{22}},
+		{s1: "apple inc", s2: "apple inc", want: []uint16{100, 55}},
+		{s1: "apple inc", s2: "Apple Inc.", want: []uint16{100, 55}},
+		{s1: "Apple", s2: "Apple Inc", want: []uint16{100, 0}},
+		{s1: "aplle", s2: "Apple", want: []uint16{80}},
+		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: []uint16{100, 50, 50, 60, 42, 52}},
+		{s1: "Apple Inc.", s2: "GMBH Apple Corp", want: []uint16{52, 63, 22, 22, 73, 52}},
+		{s1: "Aplle Inc.", s2: "GMBH Apple Corp", want: []uint16{42, 52, 22, 22, 63, 42}},
 	}
 
 	for _, tt := range tests {
@@ -29,12 +29,12 @@ func TestCalculateLevenshteinForPermutations(t *testing.T) {
 		t.Run(testname, func(t *testing.T) {
 			ans := calculateLevenshteinForPermutations(*staticString, *permutableString)
 			if len(ans) != len(tt.want) {
-				t.Errorf("got %g, want %g", ans, tt.want)
+				t.Errorf("got %d, want %d", ans, tt.want)
 				t.FailNow()
 			}
 			for i, v := range ans {
 				if v != tt.want[i] {
-					t.Errorf("got %g, want %g", ans, tt.want)
+					t.Errorf("got %d, want %d", ans, tt.want)
 				}
 			}
 		})
@@ -44,18 +44,18 @@ func TestCalculateLevenshteinForPermutations(t *testing.T) {
 func TestMatchDeepDive(t *testing.T) {
 	var tests = []struct {
 		s1, s2 string
-		want   float32
+		want   uint16
 	}{
-		{s1: "aplle", s2: "tree", want: 0.22222222},
-		{s1: "apple inc", s2: "apple inc", want: 1},
-		{s1: "apple inc", s2: "Apple Inc.", want: 1},
-		{s1: "Apple", s2: "Apple Inc.", want: 1},
-		{s1: "Apple Inc", s2: "Apple", want: 1},
-		{s1: "aplle", s2: "Apple", want: 0.8},
-		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: 1},
-		{s1: "GMBH Apple Corp", s2: "Apple Inc.", want: 0.7368421},
-		{s1: "apple Inc.", s2: "GMBH Apple Corp.", want: 0.7368421},
-		{s1: "aplle Inc.", s2: "GMBH Apple Corp.", want: 0.6315789},
+		{s1: "aplle", s2: "tree", want: 22},
+		{s1: "apple inc", s2: "apple inc", want: 100},
+		{s1: "apple inc", s2: "Apple Inc.", want: 100},
+		{s1: "Apple", s2: "Apple Inc.", want: 100},
+		{s1: "Apple Inc", s2: "Apple", want: 100},
+		{s1: "aplle", s2: "Apple", want: 80},
+		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: 100},
+		{s1: "GMBH Apple Corp", s2: "Apple Inc.", want: 73},
+		{s1: "apple Inc.", s2: "GMBH Apple Corp.", want: 73},
+		{s1: "aplle Inc.", s2: "GMBH Apple Corp.", want: 63},
 	}
 	var m = &Match{}
 	m.Strategy = DeepDive{}
@@ -65,7 +65,7 @@ func TestMatchDeepDive(t *testing.T) {
 		t.Run(testname, func(t *testing.T) {
 			ans := m.MatchStrings(tt.s1, tt.s2)
 			if ans != tt.want {
-				t.Errorf("got %g, want %g", ans, tt.want)
+				t.Errorf("got %d, want %d", ans, tt.want)
 			}
 		})
 	}

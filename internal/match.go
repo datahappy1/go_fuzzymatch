@@ -6,6 +6,6 @@ type Match struct {
 }
 
 // MatchStrings returns float32
-func (m *Match) MatchStrings(s1 string, s2 string) float32 {
+func (m *Match) MatchStrings(s1 string, s2 string) uint16 {
 	return m.Strategy.matchStrings(s1, s2)
 }

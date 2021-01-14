@@ -9,10 +9,10 @@ import (
 // DeepDive returns struct
 type DeepDive struct{}
 
-func calculateLevenshteinForPermutations(staticString evaluatedString, permutableString evaluatedString) []float32 {
-	var outputSlice []float32
+func calculateLevenshteinForPermutations(staticString evaluatedString, permutableString evaluatedString) []uint16 {
+	var outputSlice []uint16
 	var i = 0
-	var maxIterSize = 70000
+	var maxIterSize = 68000
 
 	p := prmt.New(prmt.StringSlice(permutableString.valueByWordSplitArray))
 	for p.Next() {
@@ -26,10 +26,10 @@ func calculateLevenshteinForPermutations(staticString evaluatedString, permutabl
 	return outputSlice
 }
 
-func (DeepDive) matchStrings(s1 string, s2 string) float32 {
+func (DeepDive) matchStrings(s1 string, s2 string) uint16 {
 	String1 := createEvaluatedString(s1)
 	String2 := createEvaluatedString(s2)
-	var outputSlice []float32
+	var outputSlice []uint16
 
 	if String1.valueByWordSplitArrayLength == 1 && String2.valueByWordSplitArrayLength == 1 {
 		return LevenshteinRatio(String1.value, String2.value)
@@ -38,5 +38,5 @@ func (DeepDive) matchStrings(s1 string, s2 string) float32 {
 	} else {
 		outputSlice = calculateLevenshteinForPermutations(*String2, *String1)
 	}
-	return maxOfSliceOfFloats(outputSlice)
+	return maxOfSliceOfUnsignedInts(outputSlice)
 }
