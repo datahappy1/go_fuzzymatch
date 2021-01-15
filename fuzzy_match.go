@@ -20,10 +20,10 @@ func main() {
 	} else {
 		var m = &match.Match{}
 		if *mode == "simple" {
-			m.Strategy = match.DeepDive{}
+			m.Strategy = match.Simple{}
 			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
 		} else if *mode == "deepDive" {
-			m.Strategy = match.Simple{}
+			m.Strategy = match.DeepDive{}
 			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
 		} else if *mode == "combined" {
 			m.Strategy = match.Combined{}
