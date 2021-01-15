@@ -54,5 +54,4 @@ Example results in `deepDive` mode:
 
 
 ## how to run:
-
-`go run fuzzy_match.go -string1="apple" -string2="Apple inc." -mode=simple|deepDive|combined`
+`go run cmd\fuzzy_match.go -string1="apple" -string2="Apple inc." -mode=simple|deepDive|combined`
