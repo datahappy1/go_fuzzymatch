@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	match "./internal"
+	match "github.com/datahappy1/go_fuzzymatch/internal"
 )
 
 func main() {
