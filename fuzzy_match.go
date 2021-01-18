@@ -4,7 +4,8 @@ import (
 	match "github.com/datahappy1/go_fuzzymatch/internal"
 )
 
-func fuzzyMatch(string1 string, string2 string, mode string) uint16 {
+// FuzzyMatch returns uint16
+func FuzzyMatch(string1 string, string2 string, mode string) uint16 {
 
 	if string1 == string2 {
 		return 1
