@@ -8,8 +8,8 @@ import (
 
 type evaluatedString struct {
 	value                       string
-	valueByWordSplitArray       []string
-	valueByWordSplitArrayLength int
+	valueByWordSplitSlice       []string
+	valueByWordSplitSliceLength int
 }
 
 func createEvaluatedString(v string) *evaluatedString {
@@ -17,8 +17,8 @@ func createEvaluatedString(v string) *evaluatedString {
 	stringWordSplit := splitStringToUniqueValuesSliceByWhitespace(processedInputString)
 	s := evaluatedString{
 		value:                       processedInputString,
-		valueByWordSplitArray:       stringWordSplit,
-		valueByWordSplitArrayLength: len(stringWordSplit)}
+		valueByWordSplitSlice:       stringWordSplit,
+		valueByWordSplitSliceLength: len(stringWordSplit)}
 	return &s
 }
 
@@ -40,9 +40,9 @@ func appendStringToSliceIfMissing(slice []string, i string) []string {
 }
 
 func splitStringToUniqueValuesSliceByWhitespace(s string) []string {
-	var splitStringArray []string
+	var splitStringSlice []string
 	for _, word := range strings.Fields(s) {
-		splitStringArray = appendStringToSliceIfMissing(splitStringArray, word)
+		splitStringSlice = appendStringToSliceIfMissing(splitStringSlice, word)
 	}
-	return splitStringArray
+	return splitStringSlice
 }
