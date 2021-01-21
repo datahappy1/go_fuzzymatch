@@ -23,7 +23,7 @@ func FuzzyMatch(string1 string, string2 string, mode string) int {
 			m.Strategy = match.Combined{}
 			return m.MatchStrings(string1, string2)
 		} else {
-			return 0
+			return -1
 		}
 	}
 }
