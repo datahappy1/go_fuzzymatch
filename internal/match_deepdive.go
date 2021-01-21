@@ -38,5 +38,5 @@ func (DeepDive) matchStrings(s1 string, s2 string) int {
 	} else {
 		outputSlice = calculateLevenshteinForPermutations(*String2, *String1)
 	}
-	return maxOfSliceOfInts(outputSlice)
+	return maxOfSliceOfIntegers(outputSlice)
 }

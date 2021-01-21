@@ -1,6 +1,6 @@
 package match
 
-func minOfVarsOfInts(vars ...int) int {
+func minOfVarsOfIntegers(vars ...int) int {
 	min := vars[0]
 	for _, i := range vars {
 		if min > i {
@@ -10,7 +10,7 @@ func minOfVarsOfInts(vars ...int) int {
 	return min
 }
 
-func maxOfSliceOfInts(slice []int) int {
+func maxOfSliceOfIntegers(slice []int) int {
 	max := slice[0]
 	for _, i := range slice {
 		if max < i {
@@ -38,8 +38,7 @@ func LevenshteinRatio(s1 string, s2 string) int {
 	}
 
 	// Populate matrix of zeros with the indices of each character of both strings
-	var i int
-	var ii int
+	var i, ii int
 	for i = 1; i < rows; i++ {
 		for ii = 1; ii < cols; ii++ {
 			distance[i][0] = i
@@ -48,8 +47,7 @@ func LevenshteinRatio(s1 string, s2 string) int {
 	}
 
 	// Iterate over the matrix to compute the cost of deletions,insertions and/or substitutions
-	var col int
-	var row int
+	var col, row int
 	for col = 1; col < cols; col++ {
 		for row = 1; row < rows; row++ {
 			if s1[row-1] == s2[col-1] {
@@ -60,7 +58,7 @@ func LevenshteinRatio(s1 string, s2 string) int {
 				cost = 2
 			}
 
-			distance[row][col] = minOfVarsOfInts(
+			distance[row][col] = minOfVarsOfIntegers(
 				distance[row-1][col]+1,      // Cost of deletions
 				distance[row][col-1]+1,      // Cost of insertions
 				distance[row-1][col-1]+cost) // Cost of substitutions
