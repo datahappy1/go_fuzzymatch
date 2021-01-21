@@ -8,16 +8,16 @@ import (
 func TestCalculateLevenshteinForPermutations(t *testing.T) {
 	var tests = []struct {
 		s1, s2 string
-		want   []uint16
+		want   []int
 	}{
-		{s1: "aplle", s2: "tree", want: []uint16{22}},
-		{s1: "apple inc", s2: "apple inc", want: []uint16{100, 55}},
-		{s1: "apple inc", s2: "Apple Inc.", want: []uint16{100, 55}},
-		{s1: "Apple", s2: "Apple Inc", want: []uint16{100, 0}},
-		{s1: "aplle", s2: "Apple", want: []uint16{80}},
-		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: []uint16{100, 50, 50, 60, 42, 52}},
-		{s1: "Apple Inc.", s2: "GMBH Apple Corp", want: []uint16{52, 63, 22, 22, 73, 52}},
-		{s1: "Aplle Inc.", s2: "GMBH Apple Corp", want: []uint16{42, 52, 22, 22, 63, 42}},
+		{s1: "aplle", s2: "tree", want: []int{22}},
+		{s1: "apple inc", s2: "apple inc", want: []int{100, 55}},
+		{s1: "apple inc", s2: "Apple Inc.", want: []int{100, 55}},
+		{s1: "Apple", s2: "Apple Inc", want: []int{100, 0}},
+		{s1: "aplle", s2: "Apple", want: []int{80}},
+		{s1: "Apple Corp.", s2: "Apple Corp. GMBH", want: []int{100, 50, 50, 60, 42, 52}},
+		{s1: "Apple Inc.", s2: "GMBH Apple Corp", want: []int{52, 63, 22, 22, 73, 52}},
+		{s1: "Aplle Inc.", s2: "GMBH Apple Corp", want: []int{42, 52, 22, 22, 63, 42}},
 	}
 
 	for _, tt := range tests {
@@ -44,7 +44,7 @@ func TestCalculateLevenshteinForPermutations(t *testing.T) {
 func TestMatchDeepDive(t *testing.T) {
 	var tests = []struct {
 		s1, s2 string
-		want   uint16
+		want   int
 	}{
 		{s1: "aplle", s2: "tree", want: 22},
 		{s1: "apple inc", s2: "apple inc", want: 100},

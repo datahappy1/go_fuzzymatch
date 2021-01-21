@@ -1,6 +1,6 @@
 package match
 
-func minOfVarsOfUnsignedInts(vars ...uint16) uint16 {
+func minOfVarsOfInts(vars ...int) int {
 	min := vars[0]
 	for _, i := range vars {
 		if min > i {
@@ -10,7 +10,7 @@ func minOfVarsOfUnsignedInts(vars ...uint16) uint16 {
 	return min
 }
 
-func maxOfSliceOfUnsignedInts(slice []uint16) uint16 {
+func maxOfSliceOfInts(slice []int) int {
 	max := slice[0]
 	for _, i := range slice {
 		if max < i {
@@ -21,25 +21,25 @@ func maxOfSliceOfUnsignedInts(slice []uint16) uint16 {
 }
 
 // LevenshteinRatio returns int
-func LevenshteinRatio(s1 string, s2 string) uint16 {
-	var rowLength = uint16(len(s1))
-	var colLength = uint16(len(s2))
+func LevenshteinRatio(s1 string, s2 string) int {
+	var rowLength = len(s1)
+	var colLength = len(s2)
 	var rows = rowLength + 1
 	var cols = colLength + 1
-	var cost uint16 = 0
+	var cost int = 0
 
 	// Initialize a rows length slice of empty slices
-	distance := make([][]uint16, rows)
+	distance := make([][]int, rows)
 
 	// Initialize the cols empty slices
-	var x uint16
+	var x int
 	for x = 0; x < rows; x++ {
-		distance[x] = make([]uint16, cols)
+		distance[x] = make([]int, cols)
 	}
 
 	// Populate matrix of zeros with the indices of each character of both strings
-	var i uint16
-	var ii uint16
+	var i int
+	var ii int
 	for i = 1; i < rows; i++ {
 		for ii = 1; ii < cols; ii++ {
 			distance[i][0] = i
@@ -48,8 +48,8 @@ func LevenshteinRatio(s1 string, s2 string) uint16 {
 	}
 
 	// Iterate over the matrix to compute the cost of deletions,insertions and/or substitutions
-	var col uint16
-	var row uint16
+	var col int
+	var row int
 	for col = 1; col < cols; col++ {
 		for row = 1; row < rows; row++ {
 			if s1[row-1] == s2[col-1] {
@@ -60,7 +60,7 @@ func LevenshteinRatio(s1 string, s2 string) uint16 {
 				cost = 2
 			}
 
-			distance[row][col] = minOfVarsOfUnsignedInts(
+			distance[row][col] = minOfVarsOfInts(
 				distance[row-1][col]+1,      // Cost of deletions
 				distance[row][col-1]+1,      // Cost of insertions
 				distance[row-1][col-1]+cost) // Cost of substitutions

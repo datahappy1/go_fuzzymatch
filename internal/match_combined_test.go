@@ -8,7 +8,7 @@ import (
 func TestMatchCombined(t *testing.T) {
 	var tests = []struct {
 		s1, s2 string
-		want   uint16
+		want   int
 	}{
 		{s1: "aplle", s2: "tree", want: 22},
 		{s1: "apple inc", s2: "apple inc", want: 100},

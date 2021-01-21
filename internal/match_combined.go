@@ -3,8 +3,8 @@ package match
 // Combined returns struct
 type Combined struct{}
 
-func (Combined) matchStrings(s1 string, s2 string) uint16 {
-	var output uint16
+func (Combined) matchStrings(s1 string, s2 string) int {
+	var output int
 
 	output = Simple.matchStrings(Simple{}, s1, s2)
 
