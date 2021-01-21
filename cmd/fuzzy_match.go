@@ -14,7 +14,7 @@ func main() {
 	flag.Parse()
 
 	if *string1Ptr == *string2Ptr {
-		fmt.Println(1)
+		fmt.Println(100)
 	} else if *string1Ptr == "" || *string2Ptr == "" {
 		fmt.Println(0)
 	} else {

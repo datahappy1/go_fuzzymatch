@@ -8,7 +8,7 @@ import (
 func FuzzyMatch(string1 string, string2 string, mode string) int {
 
 	if string1 == string2 {
-		return 1
+		return 100
 	} else if string1 == "" || string2 == "" {
 		return 0
 	} else {
