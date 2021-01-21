@@ -1,35 +1,29 @@
-package main
+package fm
 
 import (
-	"flag"
-	"fmt"
-
-	match "./internal"
+	match "github.com/datahappy1/go_fuzzymatch/internal"
 )
 
-func main() {
-	string1Ptr := flag.String("string1", "", "first string")
-	string2Ptr := flag.String("string2", "", "second string")
-	mode := flag.String("mode", "simple", "mode < simple | deepDive | combined >")
-	flag.Parse()
+// FuzzyMatch returns int
+func FuzzyMatch(string1 string, string2 string, mode string) int {
 
-	if *string1Ptr == *string2Ptr {
-		fmt.Println(1)
-	} else if *string1Ptr == "" || *string2Ptr == "" {
-		fmt.Println(0)
+	if string1 == string2 {
+		return 100
+	} else if string1 == "" || string2 == "" {
+		return 0
 	} else {
 		var m = &match.Match{}
-		if *mode == "simple" {
+		if mode == "simple" {
 			m.Strategy = match.Simple{}
-			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
-		} else if *mode == "deepDive" {
+			return m.MatchStrings(string1, string2)
+		} else if mode == "deepDive" {
 			m.Strategy = match.DeepDive{}
-			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
-		} else if *mode == "combined" {
+			return m.MatchStrings(string1, string2)
+		} else if mode == "combined" {
 			m.Strategy = match.Combined{}
-			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
+			return m.MatchStrings(string1, string2)
 		} else {
-			fmt.Println("Unknown mode argument value, options are: simple, deepDive, combined")
+			return 0
 		}
 	}
 }

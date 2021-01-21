@@ -21,38 +21,37 @@ This tool is able to operate in three modes:
 Example results in `simple` mode:
 |string 1  |string 2  |calculated output  |
 |---|---|---|
-|apple inc|apple inc|1|
-|apple inc|Apple Inc.|1|
-|Apple|Apple Inc.|1|
-|Apple Inc|Apple|1|
-|aplle|Apple|0.8|
-|Apple Corp.|Apple Corp. GMBH|0.8|
-|GMBH Apple Corp|Apple Inc.|0.5833333|
-|apple Inc.|GMBH Apple Corp.|0.5833333|
-|aplle Inc.|GMBH Apple Corp.|0.5|
+|apple inc|apple inc|100|
+|apple inc|Apple Inc.|100|
+|Apple|Apple Inc.|100|
+|Apple Inc|Apple|100|
+|aplle|Apple|80|
+|Apple Corp.|Apple Corp. GMBH|80|
+|GMBH Apple Corp|Apple Inc.|58|
+|apple Inc.|GMBH Apple Corp.|58|
+|aplle Inc.|GMBH Apple Corp.|50|
 
 
 ### deepDive mode:
 > deepDive mode is slower but goes more in depth when comparing multi-word strings using permutations. 
-> If deepDive mode is provided with two single word strings for comparison, it evaluates the strings like in simple mode.
+> In this mode, if provided with two single word strings for comparison, the tool evaluates the strings like in simple mode.
 
 Example results in `deepDive` mode:
 |string 1  |string 2  |calculated output  |
 |---|---|---|
-|apple inc|apple inc|1|
-|apple inc|Apple Inc.|1|
-|Apple|Apple Inc.|1|
-|Apple Inc|Apple|1|
-|aplle|Apple|0.8|
-|Apple Corp.|Apple Corp. GMBH|**1**|
-|GMBH Apple Corp|Apple Inc.|**0.7368421**|
-|apple Inc.|GMBH Apple Corp.|**0.7368421**|
-|aplle Inc.|GMBH Apple Corp.|**0.6315789**|
+|apple inc|apple inc|100|
+|apple inc|Apple Inc.|100|
+|Apple|Apple Inc.|100|
+|Apple Inc|Apple|100|
+|aplle|Apple|80|
+|Apple Corp.|Apple Corp. GMBH|**100**|
+|GMBH Apple Corp|Apple Inc.|**73**|
+|apple Inc.|GMBH Apple Corp.|**73**|
+|aplle Inc.|GMBH Apple Corp.|**63**|
 
 ### combined mode:
-> combined mode starts strings evaluation using simple mode and if no match above `0.85` is found, it evaluates the strings again in a deepDive mode.
+> combined mode starts strings evaluation using simple mode and if no match above `85` is found, it evaluates the strings again in a deepDive mode.
 
 
 ## how to run:
-
-`go run fuzzy_match.go -string1="apple" -string2="Apple inc." -mode=simple|deepDive|combined`
+`go run cmd\fuzzy_match.go -string1="apple" -string2="Apple inc." -mode=simple|deepDive|combined`
