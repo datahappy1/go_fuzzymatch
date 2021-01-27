@@ -13,13 +13,17 @@ type evaluatedString struct {
 }
 
 func createEvaluatedString(v string) *evaluatedString {
-	processedInputString := strings.ToLower(removeUnusedChars(v))
+	processedInputString := strings.ToLower(trimpSpace(removeUnusedChars(v)))
 	stringWordSplit := splitStringToUniqueValuesSliceByWhitespace(processedInputString)
 	s := evaluatedString{
 		value:                       processedInputString,
 		valueByWordSplitSlice:       stringWordSplit,
 		valueByWordSplitSliceLength: len(stringWordSplit)}
 	return &s
+}
+
+func trimSpace(s string) string {
+	return strings.TrimSpace(s)
 }
 
 func removeUnusedChars(s string) string {
