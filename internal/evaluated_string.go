@@ -13,13 +13,17 @@ type evaluatedString struct {
 }
 
 func createEvaluatedString(v string) *evaluatedString {
-	processedInputString := strings.ToLower(trimSpace(removeUnusedChars(v)))
+	processedInputString := prepareString(v)
 	stringWordSplit := splitStringToUniqueValuesSliceByWhitespace(processedInputString)
 	s := evaluatedString{
 		value:                       processedInputString,
 		valueByWordSplitSlice:       stringWordSplit,
 		valueByWordSplitSliceLength: len(stringWordSplit)}
 	return &s
+}
+
+func toLower(s string) string {
+	return strings.ToLower(s)
 }
 
 func trimSpace(s string) string {
@@ -32,6 +36,10 @@ func removeUnusedChars(s string) string {
 		log.Fatal(err)
 	}
 	return reg.ReplaceAllString(s, " ")
+}
+
+func prepareString(s string) string {
+	return toLower(trimSpace(removeUnusedChars(s)))
 }
 
 func appendStringToSliceIfMissing(slice []string, i string) []string {
