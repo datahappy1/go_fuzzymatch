@@ -1,7 +1,7 @@
-package fm
+package pkg
 
 import (
-	match "github.com/datahappy1/go_fuzzymatch/internal"
+	"github.com/datahappy1/go_fuzzymatch/internal/go_fuzzymatch"
 )
 
 // FuzzyMatch returns int
@@ -12,15 +12,15 @@ func FuzzyMatch(string1 string, string2 string, mode string) int {
 	} else if string1 == "" || string2 == "" {
 		return 0
 	} else {
-		var m = &match.Match{}
+		var m = &go_fuzzymatch.Match{}
 		if mode == "simple" {
-			m.Strategy = match.Simple{}
+			m.Strategy = go_fuzzymatch.Simple{}
 			return m.MatchStrings(string1, string2)
 		} else if mode == "deepDive" {
-			m.Strategy = match.DeepDive{}
+			m.Strategy = go_fuzzymatch.DeepDive{}
 			return m.MatchStrings(string1, string2)
 		} else if mode == "combined" {
-			m.Strategy = match.Combined{}
+			m.Strategy = go_fuzzymatch.Combined{}
 			return m.MatchStrings(string1, string2)
 		} else {
 			return -1

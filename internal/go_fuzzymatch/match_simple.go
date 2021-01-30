@@ -1,4 +1,4 @@
-package match
+package go_fuzzymatch
 
 import (
 	"sort"

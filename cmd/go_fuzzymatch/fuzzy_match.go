@@ -3,8 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-
-	match "github.com/datahappy1/go_fuzzymatch/internal"
+	"github.com/datahappy1/go_fuzzymatch/internal/go_fuzzymatch"
 )
 
 func main() {
@@ -18,15 +17,15 @@ func main() {
 	} else if *string1Ptr == "" || *string2Ptr == "" {
 		fmt.Println(0)
 	} else {
-		var m = &match.Match{}
+		var m = &go_fuzzymatch.Match{}
 		if *mode == "simple" {
-			m.Strategy = match.Simple{}
+			m.Strategy = go_fuzzymatch.Simple{}
 			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
 		} else if *mode == "deepDive" {
-			m.Strategy = match.DeepDive{}
+			m.Strategy = go_fuzzymatch.DeepDive{}
 			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
 		} else if *mode == "combined" {
-			m.Strategy = match.Combined{}
+			m.Strategy = go_fuzzymatch.Combined{}
 			fmt.Println(m.MatchStrings(*string1Ptr, *string2Ptr))
 		} else {
 			fmt.Println("Unknown mode argument value, options are: simple, deepDive, combined")
