@@ -53,5 +53,5 @@ Example results in `deepDive` mode:
 > combined mode starts strings evaluation using simple mode and if no match above `85` is found, it evaluates the strings again in a deepDive mode.
 
 
-## how to run:
+## how to run as a Command line tool:
 `go run cmd\go_fuzzymatch\fuzzy_match.go -string1="apple" -string2="Apple inc." -mode=simple|deepDive|combined`
