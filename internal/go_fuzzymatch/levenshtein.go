@@ -1,4 +1,4 @@
-package goFuzzymatch
+package gofuzzymatch
 
 func minOfVarsOfIntegers(vars ...int) int {
 	min := vars[0]
