@@ -1,4 +1,4 @@
-package go_fuzzymatch
+package goFuzzymatch
 
 import (
 	"fmt"
