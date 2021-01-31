@@ -1,4 +1,4 @@
-package go_fuzzymatch
+package goFuzzymatch
 
 // Combined returns struct
 type Combined struct{}

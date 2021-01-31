@@ -1,4 +1,4 @@
-package go_fuzzymatch
+package goFuzzymatch
 
 // Match type
 type Match struct {
