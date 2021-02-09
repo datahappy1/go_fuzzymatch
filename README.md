@@ -1,5 +1,6 @@
 # go_fuzzymatch
 [![Go Report Card](https://goreportcard.com/badge/github.com/datahappy1/go_fuzzymatch)](https://goreportcard.com/report/github.com/datahappy1/go_fuzzymatch)
+![Go](https://github.com/datahappy1/go_fuzzymatch/workflows/Go/badge.svg)
 ## description:
 
 Fuzzy matching CLI tool written in Go. The string distance matching calculation is done using [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance). 
